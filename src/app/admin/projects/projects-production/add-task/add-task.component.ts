@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {SharedService} from '@core/service/shared.service';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '@core';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class AddTaskComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private auth: AuthService,
   ) {
   }
 
@@ -36,6 +38,7 @@ export class AddTaskComponent implements OnInit {
 
   loadsForms() {
     this.taskAddForm = this.fb.group({
+      manager: [this.auth.currentUserValue.id],
       file: [this.file, [Validators.required]],
       department: [this.department, [Validators.required]],
       project: [this.project, [Validators.required]],

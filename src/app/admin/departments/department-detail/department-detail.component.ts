@@ -160,11 +160,15 @@ export class DepartmentDetailComponent implements OnInit {
   addComment(fileId: any) {
     this.commentForm.value.user = this.auth.currentUserValue.id;
     this.commentForm.value.file = fileId;
-    this.service.addProductionFileComment(this.commentForm.value).subscribe();
+    this.service.addProductionFileComment(this.commentForm.value).subscribe(() => {
+      this.loadDepartmentData(this.depId);
+    });
   }
 
   deleteComment(commentId: any) {
-    this.service.deleteProductionFileComment(commentId).subscribe();
+    this.service.deleteProductionFileComment(commentId).subscribe(() => {
+      this.loadDepartmentData(this.depId);
+    });
   }
 
   searchFileDep(searchValue: string) {

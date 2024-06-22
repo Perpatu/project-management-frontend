@@ -66,28 +66,31 @@
                           <ng-container
                             *ngIf="element.previous_task.start === false">
                             <p>
-                              Status: Jescze nie rozpoczęto
+                              Status: Not started yet
                             </p>
                           </ng-container>
                           <ng-container
                             *ngIf="element.previous_task.start === true && element.previous_task.end === false">
                             <p>
-                              Status: Rozpoczęto
-                              Data: {{ element.previous_task.real_start_date }}
+                              Status: Started
+                              <br>
+                              Data: {{ element.previous_task.real_start_date.split("T")[0]}} {{element.previous_task.real_start_date.split("T")[1].split(".")[0] }}
                             </p>
                           </ng-container>
                           <ng-container
                             *ngIf="element.previous_task.start === true && element.previous_task.end === true">
                             <p>
-                              Status: Zakończono
-                              Data: {{ element.previous_task.real_end_date }}
+                              Status: Finished
+                              <br>
+                              Date: {{ element.previous_task.real_end_date.split("T")[0]  }} {{ element.previous_task.real_end_date.split("T")[1].split(".")[0]  }}
                             </p>
                           </ng-container>
                           <ng-container
                             *ngIf="element.previous_task.start === true && element.previous_task.paused === true">
                             <p>
-                              Status: Wstrzymano
-                              Data: {{ element.previous_task.paused_date }}
+                              Status: Paused
+                              <br>
+                              Date: {{ element.previous_task.paused_date.split("T")[0]  }} {{ element.previous_task.paused_date.split("T")[1].split(".")[0] }}
                             </p>
                           </ng-container>
                           <p>
@@ -204,7 +207,7 @@
                         Manager
                       </th>
                       <td *matCellDef="let element" data-label="manager" mat-cell>
-                        {{ element.project.manager }}
+                        {{ element.manager.first_name }} {{ element.manager.last_name }}
                       </td>
                     </ng-container>
 
@@ -213,7 +216,7 @@
                         Project
                       </th>
                       <td *matCellDef="let element" data-label="project" mat-cell>
-                        <a href="/#/admin/project-production/detail/{{element.project.id}}">
+                        <a href="/#/admin/project-production/detail/{{element.project}}">
                           <button [matTooltipPosition]="'above'" color="primary" mat-raised-button matTooltip="Open Project page"
                                   style="text-align:center;" type="button">
                             Project
@@ -253,12 +256,12 @@
                             </mat-icon>
                           </div>
 
-                          <form (ngSubmit)="addComment(element.id)" [formGroup]="commentForm" class="mt-3" form>
+                          <form (ngSubmit)="addComment(element.file.id)" [formGroup]="commentForm" class="mt-3" form>
 
                             <mat-form-field *ngIf="element.expand" appearance="outline" class="w-100">
                               <mat-label>Type your comment here...</mat-label>
                               <input formControlName="text" matInput required>
-                              <mat-icon (click)="addComment(element.id)" [matTooltipPosition]="'above'" class="icons"
+                              <mat-icon (click)="addComment(element.file.id)" [matTooltipPosition]="'above'" class="icons"
                                         matSuffix matTooltip="Add comment">send
                               </mat-icon>
                               <mat-error *ngIf="commentForm.get('text').hasError('required')">
