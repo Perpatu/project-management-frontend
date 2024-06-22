@@ -127,7 +127,7 @@ export class DepartmentDetailComponent implements OnInit {
   }
 
   loadDepartmentData(depId: any) {
-    this.service.getTaskDepartmentAdmin(depId, this.status,  this.pageSize, this.pageNumber).subscribe((data: any) => {
+    this.service.getTaskDepartmentAdmin(depId, this.status, this.pageSize, this.pageNumber).subscribe((data: any) => {
       this.tasks = data.tasks.data;
       this.dataSource = new MatTableDataSource(this.tasks);
       this.totalItems = data.tasks.totalItems;
